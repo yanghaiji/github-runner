@@ -58,6 +58,7 @@
                     <skipDocker>false</skipDocker>
                     <!-- <dockerDirectory>docker</dockerDirectory> -->
                     <imageName>${project.artifactId}</imageName>
+                    <newName>${docker.image.registry.name}/${project.artifactId}:${project.version}</newName>
                     <baseImage>java:openjdk-8u111-alpine</baseImage>
                     <forceTags>true</forceTags>
                     <imageTags>
@@ -66,7 +67,7 @@
                     </imageTags>
                     <exposes>8080</exposes>
                     <workdir>/opt</workdir>
-                    <cmd>java ${docker.java_option} -jar /opt/${project.artifactId}-${project.version}.jar --spring.profiles.active=${docker.profiles}</cmd>
+                    <cmd>java ${docker.java_option} -jar /opt/${project.artifactId}-${project.version}.jar  --spring.profiles.active=${docker.profiles}</cmd>
                     <resources>
                         <resource>
                             <targetPath>/opt</targetPath>
@@ -74,9 +75,9 @@
                             <include>${project.artifactId}-${project.version}.jar</include>
                         </resource>
                     </resources>
-<!--
-                    <dockerHost>${docker.image.registry.name}</dockerHost>
--->
+                    <!--
+                                        <dockerHost>${docker.image.registry.name}</dockerHost>
+                    -->
                 </configuration>
             </plugin>
             <plugin>
