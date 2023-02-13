@@ -10,7 +10,7 @@
     <properties>
         <docker.profiles>dev</docker.profiles>
         <docker.java_option>-Xms2048m -Xmx2048m -Duser.timezone=GMT+8</docker.java_option>
-        <docker.image.registry.name>hub.docker.com/repository/docker/javayh/github-runner</docker.image.registry.name>
+        <docker.image.registry.name>javayh/github-runner</docker.image.registry.name>
     </properties>
     <dependencies>
         <dependency>
