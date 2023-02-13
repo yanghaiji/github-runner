@@ -92,6 +92,7 @@
                 <configuration>
                     <skipDocker>false</skipDocker>
                     <!-- <dockerDirectory>docker</dockerDirectory> -->
+                    <baseImage>java</baseImage>
                     <imageName>${project.artifactId}</imageName>
                     <newName>${docker.image.registry.name}/${project.artifactId}:${project.version}</newName>
                     <baseImage>java:openjdk-8u111-alpine</baseImage>
@@ -110,10 +111,27 @@
                             <include>${project.artifactId}-${project.version}.jar</include>
                         </resource>
                     </resources>
-                    <!--
-                                        <dockerHost>${docker.image.registry.name}</dockerHost>
-                    -->
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>tag-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${project.artifactId}</image>
+                            <newName>${docker.image.registry.name}/${project.artifactId}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
