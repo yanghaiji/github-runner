@@ -25,6 +25,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: 网路测试
+        run: ping hub.docker.com
+        shell: bash
+
+
       - name: Check out the repo
         uses: actions/checkout@v3
 
