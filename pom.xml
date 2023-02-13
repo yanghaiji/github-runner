@@ -58,7 +58,7 @@
                     <skipDocker>false</skipDocker>
                     <!-- <dockerDirectory>docker</dockerDirectory> -->
                     <imageName>${project.artifactId}</imageName>
-                    <baseImage>docker.io/java:8</baseImage>
+                    <baseImage>java:openjdk-8u111-alpine</baseImage>
                     <forceTags>true</forceTags>
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
