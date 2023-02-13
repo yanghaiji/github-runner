@@ -66,9 +66,7 @@
                     </imageTags>
                     <exposes>8080</exposes>
                     <workdir>/opt</workdir>
-                    <cmd>java ${docker.java_option} -jar /opt/${project.artifactId}-${project.version}.jar
-                        -Dlog4j.formatMsgNoLookups=true --spring.profiles.active=${docker.profiles}
-                    </cmd>
+                    <cmd>java ${docker.java_option} -jar /opt/${project.artifactId}-${project.version}.jar --spring.profiles.active=${docker.profiles}</cmd>
                     <resources>
                         <resource>
                             <targetPath>/opt</targetPath>
