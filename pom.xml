@@ -131,12 +131,17 @@
                             <newName>${docker.image.registry.name}/${project.artifactId}:${project.version}</newName>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.image.registry.name}/wanyang3/mavendemo:${project.version}</imageName>
+                        </configuration>
+                    </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.3.0.603</version>
             </plugin>
         </plugins>
     </build>
