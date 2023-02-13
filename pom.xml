@@ -57,7 +57,7 @@
                 <configuration>
                     <skipDocker>false</skipDocker>
                     <!-- <dockerDirectory>docker</dockerDirectory> -->
-                    <imageName>${project.artifactId}</imageName>
+                    <imageName>${docker.image.registry.name}/${project.artifactId}</imageName>
                     <baseImage>java:openjdk-8u111-alpine</baseImage>
                     <forceTags>true</forceTags>
                     <imageTags>
@@ -74,7 +74,9 @@
                             <include>${project.artifactId}-${project.version}.jar</include>
                         </resource>
                     </resources>
+<!--
                     <dockerHost>${docker.image.registry.name}</dockerHost>
+-->
                 </configuration>
             </plugin>
             <plugin>
