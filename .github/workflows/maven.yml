@@ -43,6 +43,6 @@ jobs:
         with:
           context: .
           #          push: ${{ github.event_name != 'pull_request' }}
-          file: ./Dockerfile
+#          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_VERSION }}
