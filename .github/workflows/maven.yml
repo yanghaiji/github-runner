@@ -42,13 +42,15 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+      - name: 查看路径
         run: pwd
         shell: bash
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
         with:
-          context: .
+          context: /home/runner/work/github-runner/github-runner/target/docker
           #          push: ${{ github.event_name != 'pull_request' }}
-          file: /home/runner/work/github-runner/github-runner/target/docker/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_VERSION }}
