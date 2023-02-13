@@ -50,7 +50,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <!-- docker -->
-            <plugin>
+<!--            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.2</version>
@@ -84,14 +84,14 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-           <!-- <plugin>
+            </plugin>-->
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.2</version>
                 <configuration>
                     <skipDocker>false</skipDocker>
-                    &lt;!&ndash; <dockerDirectory>docker</dockerDirectory> &ndash;&gt;
+                    <!-- <dockerDirectory>docker</dockerDirectory> -->
                     <imageName>${project.artifactId}</imageName>
                     <newName>${docker.image.registry.name}/${project.artifactId}:${project.version}</newName>
                     <baseImage>java:openjdk-8u111-alpine</baseImage>
@@ -102,7 +102,7 @@
                     </imageTags>
                     <exposes>8080</exposes>
                     <workdir>/opt</workdir>
-                    <cmd>java ${docker.java_option} -jar /opt/${project.artifactId}-${project.version}.jar  &#45;&#45;spring.profiles.active=${docker.profiles}</cmd>
+                    <cmd>java ${docker.java_option} -jar /opt/${project.artifactId}-${project.version}.jar  --spring.profiles.active=${docker.profiles}</cmd>
                     <resources>
                         <resource>
                             <targetPath>/opt</targetPath>
@@ -110,11 +110,11 @@
                             <include>${project.artifactId}-${project.version}.jar</include>
                         </resource>
                     </resources>
-                    &lt;!&ndash;
+                    <!--
                                         <dockerHost>${docker.image.registry.name}</dockerHost>
-                    &ndash;&gt;
+                    -->
                 </configuration>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
