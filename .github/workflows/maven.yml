@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 env:
   # Use docker.io for Docker Hub if empty
-  REGISTRY: https://hub.docker.com/repositories/javayh
+  REGISTRY: https://hub.docker.com
   # <repo>
   IMAGE_NAME: github-runner
 
