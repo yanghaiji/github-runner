@@ -57,7 +57,7 @@
                 <configuration>
                     <skipDocker>false</skipDocker>
                     <!-- <dockerDirectory>docker</dockerDirectory> -->
-                    <imageName>${docker.image.registry.name}/${project.artifactId}</imageName>
+                    <imageName>${project.artifactId}</imageName>
                     <baseImage>docker.io/java:8</baseImage>
                     <forceTags>true</forceTags>
                     <imageTags>
