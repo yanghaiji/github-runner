@@ -1,4 +1,4 @@
-FROM docker.io/java:8
+FROM java:openjdk-8u111-alpine
 WORKDIR /opt
 ADD /opt/github-runner-1.0-SNAPSHOT.jar /opt/
 EXPOSE 8080
