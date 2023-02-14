@@ -22,11 +22,11 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: 动态取值
     runs-on: ubuntu-latest
     steps:
       - name: 判断分支
         if: ${{ inputs.options }} == 'info'
-        run: pwd
+        run: echo  The tags are ${{ inputs.options }}
         shell: bash
 
