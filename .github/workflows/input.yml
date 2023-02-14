@@ -31,8 +31,8 @@ jobs:
         shell: bash
       - name: Set up JDK 8
       - if: ${{ inputs.options }} == 'debug'
-          uses: actions/setup-java@v3
-          with:
-            java-version: '8'
-            distribution: 'temurin'
-            cache: maven
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          cache: maven
