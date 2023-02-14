@@ -27,6 +27,6 @@ jobs:
     steps:
       - name: 判断分支
         if: ${{ inputs.options }} == 'info'
-        run: echo  The tags are ${{ inputs.options }}
-        shell: bash
+          run: echo  The tags are ${{ inputs.options }}
+          shell: bash
 
