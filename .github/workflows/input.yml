@@ -26,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: info
-      - if: ${{ inputs.options }} == 'info'
+        if: ${{ inputs.options }} == 'info'
         run: echo  The tags are ${{ inputs.options }}
         shell: bash
       - name: Set up JDK 8
-      - if: ${{ inputs.options }} == 'debug'
+        if: ${{ inputs.options }} == 'debug'
         uses: actions/setup-java@v3
         with:
           java-version: '8'
