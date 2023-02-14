@@ -26,13 +26,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: ${{ inputs.options }} == 'info'
-          run: echo  The tags are ${{ inputs.options }}
-          shell: bash
+        run: echo  The tags are ${{ inputs.options }}
+        shell: bash
       - if: ${{ inputs.options }} == 'debug'
-          - uses: actions/checkout@v3
-          - name: Set up JDK 8
-            uses: actions/setup-java@v3
-            with:
-              java-version: '8'
-              distribution: 'temurin'
-              cache: maven
+          name: Set up JDK 8
+          uses: actions/setup-java@v3
+          with:
+            java-version: '8'
+            distribution: 'temurin'
+            cache: maven
