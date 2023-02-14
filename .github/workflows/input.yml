@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: info
-        if: ${{ inputs.options }} == 'info'
-        run: echo  The tags are ${{ inputs.options }}
+        if: ${{ inputs.logLevel.options }} == 'info'
+        run: echo  The tags are ${{ inputs.logLevel.options }}
         shell: bash
       - name: Set up JDK 8
         if: ${{ inputs.options }} == 'debug'
