@@ -28,7 +28,11 @@ on:
           - pom.xml
           - XXX/pom.xml
           - XXX/XXX/pom.xml
-
+      brach:
+        description: '分支'
+        required: true
+        default: 'main'
+        type: string
 
 jobs:
   push_to_registry:
