@@ -22,12 +22,12 @@ on:
       pom:
         description: 'pom 文件位置'
         required: true
-          default: 'pom.xml'
-          type: choice
-          options:
-            - pom.xml
-            - XXX/pom.xml
-            - XXX/XXX/pom.xml
+        default: 'pom.xml'
+        type: choice
+        options:
+          - pom.xml
+          - XXX/pom.xml
+          - XXX/XXX/pom.xml
 
 
 jobs:
