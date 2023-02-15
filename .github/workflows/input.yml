@@ -19,6 +19,16 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: true
+      pom:
+        description: 'pom 文件位置'
+        required: true
+          default: 'pom.xml'
+          type: choice
+          options:
+            - pom.xml
+            - XXX/pom.xml
+            - XXX/XXX/pom.xml
+
 
 jobs:
   push_to_registry:
@@ -26,11 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: info
-        if: ${{ inputs.logLevel.options }} == 'info'
-        run: echo  The tags are ${{ inputs.logLevel.options }}
+        if: ${{ inputs.logLevel.pom }} == 'pom.xml'
+        run: echo  The tags are ${{ inputs.pom.options }}
         shell: bash
       - name: Set up JDK 8
-        if: ${{ inputs.options }} == 'debug'
+        if: ${{ inputs.logLevel.pom }} == 'pom.xml'
         uses: actions/setup-java@v3
         with:
           java-version: '8'
