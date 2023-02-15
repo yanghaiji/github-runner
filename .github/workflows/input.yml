@@ -36,11 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: info
-        if: ${{ inputs.logLevel.pom }} == 'pom.xml'
+        if: ${{ inputs.pom.options }} == 'pom.xml'
         run: echo  The tags are ${{ inputs.pom.options }}
         shell: bash
       - name: Set up JDK 8
-        if: ${{ inputs.logLevel.pom }} == 'pom.xml'
+        if: ${{ inputs.pom.options }} == 'pom.xml'
         uses: actions/setup-java@v3
         with:
           java-version: '8'
