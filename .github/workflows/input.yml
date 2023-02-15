@@ -44,6 +44,6 @@ jobs:
         run: echo  The tags are ${{ inputs.pom.options }}
         shell: bash
       - name: 获取分支
-        if: ${{ inputs.branch }} == 'main'
+        if: ${{ inputs.branch }} == main
         run: echo  当前分支为 ${{ inputs.branch }}
         shell: bash
