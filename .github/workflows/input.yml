@@ -28,7 +28,7 @@ on:
           - pom.xml
           - XXX/pom.xml
           - XXX/XXX/pom.xml
-      brach:
+      branch:
         description: '分支'
         required: true
         default: 'main'
@@ -43,10 +43,7 @@ jobs:
         if: ${{ inputs.pom.options }} == 'pom.xml'
         run: echo  The tags are ${{ inputs.pom.options }}
         shell: bash
-      - name: Set up JDK 8
-        if: ${{ inputs.pom.options }} == 'pom.xml'
-        uses: actions/setup-java@v3
-        with:
-          java-version: '8'
-          distribution: 'temurin'
-          cache: maven
+      - name: 获取分支
+        if: ${{ inputs.branch }} == 'main'
+        run: echo  当前分支为 ${{ inputs.branch }}
+        shell: bash
