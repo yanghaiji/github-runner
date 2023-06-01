@@ -1,0 +1,45 @@
+name: Deploy to K8s
+
+on:
+  push:
+    branches: [main]
+
+env:
+  ECR_REGION: <your_ecr_region>
+  ECR_ACCOUNT: <your_ecr_account_number>
+  ECR_REPOSITORY: <your_ecr_repository_name>
+  KUBE_NAMESPACE: <your_k8s_namespace>
+  KUBE_DEPLOYMENT_NAME: <your_k8s_deployment_name>
+  KUBE_CONTAINER_NAME: <your_k8s_container_name>
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+      - name: Build application
+        run: |
+          ./mvnw clean package -DskipTests
+      - name: Set up Docker
+        uses: docker/setup-docker@v1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        run: |
+          echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login --username AWS --password-stdin https://${{ env.ECR_ACCOUNT }}.dkr.ecr.${{ env.ECR_REGION }}.amazonaws.com
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.ECR_ACCOUNT }}.dkr.ecr.${{ env.ECR_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG .
+      - name: Push Docker image to ECR
+        run: |
+          docker push ${{ env.ECR_ACCOUNT }}.dkr.ecr.${{ env.ECR_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
+      - name: Deploy to K8s
+        uses: appleboy/kubectl-action@master
+        with:
+          args: |
+            set image deployment/${{ env.KUBE_DEPLOYMENT_NAME }} ${{ env.KUBE_CONTAINER_NAME }}=${{ env.ECR_ACCOUNT }}.dkr.ecr.${{ env.ECR_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG -n ${{ env.KUBE_NAMESPACE }}

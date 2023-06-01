@@ -1,0 +1,32 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_push_to_ecr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Login to Aliyun ECR
+        run: echo ${{ secrets.CREDENTIALS_ALIYUN }} | docker login --username=$ALIYUN_USERNAME --password-stdin $ALIYUN_REGISTRY
+        env:
+          ALIYUN_USERNAME: ${{ secrets.ALIYUN_USERNAME }}
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t $ALIYUN_IMAGE .
+          docker tag $ALIYUN_IMAGE $ALIYUN_REGISTRY/$ALIYUN_NAMESPACE/$ALIYUN_IMAGE:$GITHUB_SHA
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAMESPACE/$ALIYUN_IMAGE:$GITHUB_SHA
+        env:
+          ALIYUN_IMAGE: 'myapp'
+          ALIYUN_REGISTRY: 'registry.cn-hangzhou.aliyuncs.com'
+          ALIYUN_NAMESPACE: 'my-namespace'
+          GITHUB_SHA: ${{ github.sha }}
