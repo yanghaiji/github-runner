@@ -10,10 +10,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-	
+
     env:
-      PROJECT_VERSION: ''
-	  
+      PROJECT_VERSION: '' # 定义一个环境变量用于存储版本号
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
+    - name: Build with Maven and Write Version to File
       run: |
         mvn clean install -DskipTests
         export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
@@ -39,9 +39,6 @@ jobs:
       run: |
         git branch
       shell: bash
-	  
-	- name: Check if PROJECT_VERSION is set
-      run: echo "PROJECT_VERSION is $PROJECT_VERSION"	  
 
     - name: Check out the repo
       uses: actions/checkout@v2
@@ -62,10 +59,18 @@ jobs:
       run: ls /home/runner/work/github-runner/github-runner
       shell: bash
 
+    - name: Read Version from File
+      id: read_version
+      run: echo "::set-output name=version::$(cat version.txt)"
+      shell: bash
+
+    - name: Check if PROJECT_VERSION is set
+      run: echo "PROJECT_VERSION is $PROJECT_VERSION" # 检查版本号是否设置
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.PROJECT_VERSION }}
