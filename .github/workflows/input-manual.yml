@@ -10,7 +10,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+	
+    env:
+      PROJECT_VERSION: ''
+	  
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -25,12 +28,20 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn clean package
+      run: |
+        mvn clean install -DskipTests
+        export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "PROJECT_VERSION=$PROJECT_VERSION" >> $GITHUB_ENV
+        echo "Maven Project Version: $PROJECT_VERSION" # 输出版本号到控制台
+      shell: bash
 
     - name: Display Current Branch
       run: |
         git branch
       shell: bash
+	  
+	- name: Check if PROJECT_VERSION is set
+      run: echo "PROJECT_VERSION is $PROJECT_VERSION"	  
 
     - name: Check out the repo
       uses: actions/checkout@v2
